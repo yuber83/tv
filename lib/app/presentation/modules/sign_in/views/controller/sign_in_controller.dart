@@ -1,30 +1,22 @@
-import 'package:flutter/foundation.dart';
-
+import '../../../../global/state_notifier.dart';
 import 'sign_in_state.dart';
 
-class SignInController extends ChangeNotifier {
-  SignInState _state = const SignInState();
-  bool _mounted = true;
-
-  SignInState get state => _state;
-  bool get mounted => _mounted;
+class SignInController extends StateNotifier<SignInState> {
+  SignInController(super.state);
 
   void onUsernameChanged(String text) {
-    _state = _state.copyWith(username: text.trim().toLowerCase());
+    onlyUpdate(
+      state.copyWith(username: text.trim().toLowerCase()),
+    );
   }
 
   void onPasswordChanged(String text) {
-    _state = _state.copyWith(password: text.replaceAll(' ', ''));
+    onlyUpdate(
+      state.copyWith(password: text.replaceAll(' ', '')),
+    );
   }
 
   void onFecthingChanged(bool value) {
-    _state = _state.copyWith(fetching: value);
-    notifyListeners();
-  }
-
-  @override
-  void dispose() {
-    _mounted = false;
-    super.dispose();
+    state = state.copyWith(fetching: value);
   }
 }
