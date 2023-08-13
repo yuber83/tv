@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../../../../../main.dart';
+import '../../../../domain/repositories/authentication_repository.dart';
+import '../../../../domain/repositories/connectivity_repository.dart';
 import '../../../routes/routes.dart';
 
 class SplahView extends StatefulWidget {
@@ -20,33 +22,30 @@ class _SplahViewState extends State<SplahView> {
   }
 
   Future<void> _init() async {
-    final injector = Injector.of(context);
-    final connectivityRepository = injector.connectivityRepository;
+    final routeName = await () async {
+      final ConnectivityRepository connectivityRepository = context.read();
 
-    final hasInternet = await connectivityRepository.hasInternet;
+      final AuthenticationRepository authenticationRepository = context.read();
 
-    print('tv hasInternet $hasInternet');
-    if (hasInternet) {
-      final authenticationRepository = injector.authenticationRepository;
-      final isSignedIn = await authenticationRepository.isSignedIn;
-      if (isSignedIn) {
-        final user = await authenticationRepository.getUserData();
-        if (mounted) {
-          if (user != null) {
-            //navegar a home
-            _goTo(Routes.home);
-          } else {
-            print('hola1');
-            //got to sign in
-            _goTo(Routes.signIn);
-          }
-        }
-      } else if (mounted) {
-        print('hola2');
-        _goTo(Routes.signIn);
+      final hasInternet = await connectivityRepository.hasInternet;
+
+      if (!hasInternet) {
+        return Routes.offline;
       }
-    } else {
-      _goTo(Routes.offline);
+
+      final isSignedIn = await authenticationRepository.isSignedIn;
+
+      if (!isSignedIn) {
+        return Routes.signIn;
+      }
+
+      final user = await authenticationRepository.getUserData();
+
+      return user == null ? Routes.signIn : Routes.home;
+    }();
+
+    if (mounted) {
+      _goTo(routeName);
     }
   }
 
