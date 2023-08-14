@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../domain/repositories/account_repository.dart';
 import '../../../../domain/repositories/authentication_repository.dart';
 import '../../../../domain/repositories/connectivity_repository.dart';
 import '../../../routes/routes.dart';
@@ -27,6 +28,8 @@ class _SplahViewState extends State<SplahView> {
 
       final AuthenticationRepository authenticationRepository = context.read();
 
+      final AccountRepository accountRepository = context.read();
+
       final hasInternet = await connectivityRepository.hasInternet;
 
       if (!hasInternet) {
@@ -39,7 +42,7 @@ class _SplahViewState extends State<SplahView> {
         return Routes.signIn;
       }
 
-      final user = await authenticationRepository.getUserData();
+      final user = await accountRepository.getUserData();
 
       return user == null ? Routes.signIn : Routes.home;
     }();
