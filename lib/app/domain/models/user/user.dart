@@ -15,7 +15,7 @@ class User extends Equatable {
   // @JsonKey(name: 'userId')
   final int id;
   final String username;
-  @JsonKey(name: 'avatar_path', fromJson: avatarPathFromJson)
+  @JsonKey(name: 'avatar', fromJson: avatarPathFromJson)
   final String? avatarPath;
 
   @override
@@ -30,4 +30,4 @@ class User extends Equatable {
 }
 
 String? avatarPathFromJson(Map<String, dynamic> json) =>
-    json['tmdb']?['avatar_path'];
+    json['tmdb']?['avatar_path'] as String?;
