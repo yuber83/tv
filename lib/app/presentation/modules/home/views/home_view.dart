@@ -18,8 +18,17 @@ class HomeView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(user.username, style: const TextStyle(fontSize: 20)),
-            Text(user.id.toString(), style: const TextStyle(fontSize: 20)),
+            if (user.avatarPath != null)
+              Image.network(
+                  'https://image.tmdb.org/t/p/w500${user.avatarPath}'),
+            Text(
+              user.username,
+              style: const TextStyle(fontSize: 20),
+            ),
+            Text(
+              user.id.toString(),
+              style: const TextStyle(fontSize: 20),
+            ),
             TextButton(
               onPressed: () async {
                 await sessionController.signOut();
