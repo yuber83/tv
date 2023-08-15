@@ -11,11 +11,9 @@ class InternetChecker {
         return response.statusCode == 200;
       } else {
         final list = await InternetAddress.lookup('www.google.com');
-        print(list);
         return (list.isNotEmpty && list.first.rawAddress.isNotEmpty);
       }
     } catch (e) {
-      print(e.runtimeType);
       return false;
     }
   }

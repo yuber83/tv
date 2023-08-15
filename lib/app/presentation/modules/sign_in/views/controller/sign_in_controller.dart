@@ -1,9 +1,9 @@
 import '../../../../../domain/either.dart';
-import '../../../../../domain/enums.dart';
+import '../../../../../domain/failures/signin/sign_in_failure.dart';
 import '../../../../../domain/models/user/user.dart';
 import '../../../../../domain/repositories/authentication_repository.dart';
 import '../../../../global/state_notifier.dart';
-import 'sign_in_state.dart';
+import 'state/sign_in_state.dart';
 
 class SignInController extends StateNotifier<SignInState> {
   SignInController(super.state, {required this.authenticationRepository});
@@ -29,10 +29,10 @@ class SignInController extends StateNotifier<SignInState> {
     );
 
     result.when(
-        (_) => state = state.copyWith(
+        left: (_) => state = state.copyWith(
               fetching: false,
             ),
-        (_) => null);
+        right: (_) => null);
 
     return result;
   }

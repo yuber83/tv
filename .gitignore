@@ -43,6 +43,7 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 *.g.dart
+*.freezed.dart
 
 
 # See https://www.dartlang.org/guides/libraries/private-files

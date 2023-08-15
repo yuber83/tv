@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../home/views/widgets/submit_button.dart';
 import 'controller/sign_in_controller.dart';
-import 'controller/sign_in_state.dart';
+import 'controller/state/sign_in_state.dart';
 
 class SignInView extends StatelessWidget {
   const SignInView({super.key});

@@ -6,6 +6,7 @@
     "editor.fontLifatures": false,
     "command-runner.commands": {
         "pub get": "flutter pub get",
-        "build_runner": "flutter pub run build_runner build"
+        "build_runner": "flutter pub run build_runner build",
+        "build_runner_delete_conflicting": "flutter pub run build_runner build  --delete-conflicting-outputs"
     }
 }
