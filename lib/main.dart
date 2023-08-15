@@ -16,6 +16,7 @@ import 'app/domain/repositories/account_repository.dart';
 import 'app/domain/repositories/authentication_repository.dart';
 import 'app/domain/repositories/connectivity_repository.dart';
 import 'app/my_app.dart';
+import 'app/presentation/global/controller/session_controller.dart';
 
 void main() {
   const apiKey =
@@ -49,6 +50,11 @@ void main() {
             AuthenticationAPI(http),
             sessionService,
             accountAPI,
+          ),
+        ),
+        ChangeNotifierProvider<SessionController>(
+          create: (context) => SessionController(
+            authenticationRepository: context.read(),
           ),
         )
       ],

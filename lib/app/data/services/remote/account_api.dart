@@ -10,10 +10,7 @@ class AccountAPI {
     final result = await _http.request('/account/9658257', headers: {
       'session_id': sessionId,
     }, onSuccess: (json) {
-      return User(
-        id: json['id'],
-        username: json['username'],
-      );
+      return User.fromJson(json);
     });
 
     return result.when((_) => null, (user) => user);
