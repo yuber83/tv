@@ -29,13 +29,29 @@ class TrendingTile extends StatelessWidget {
             Positioned(
               top: 5,
               right: 5,
-              child: Chip(
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                label: Text(
-                  media.voteAverage.toStringAsFixed(1),
+              child: Opacity(
+                opacity: 0.7,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Chip(
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      label: Text(
+                        media.voteAverage.toStringAsFixed(1),
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Chip(
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      label: Icon(
+                        media.type == MediaType.movie ? Icons.movie : Icons.tv,
+                        size: 15,
+                      ),
+                    )
+                  ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
