@@ -44,6 +44,7 @@ app.*.map.json
 /android/app/release
 *.g.dart
 *.freezed.dart
+lib/app/generated/
 
 
 # See https://www.dartlang.org/guides/libraries/private-files
