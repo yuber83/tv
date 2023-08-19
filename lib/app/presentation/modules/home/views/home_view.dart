@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/trending_list.dart';
+import 'widgets/movies-and_series/trending_list.dart';
+import 'widgets/performers/trending_performers.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -13,6 +14,8 @@ class HomeView extends StatelessWidget {
           children: [
             SizedBox(height: 10),
             TrendingList(),
+            SizedBox(height: 20),
+            TrendingPerformers(),
           ],
         ),
       ),

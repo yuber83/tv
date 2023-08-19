@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../home/views/widgets/submit_button.dart';
+import '../../home/widgets/submit_button.dart';
 import 'controller/sign_in_controller.dart';
 import 'controller/state/sign_in_state.dart';
 
