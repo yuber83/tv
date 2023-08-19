@@ -6,6 +6,7 @@ import '../../../../../../domain/enums.dart';
 import '../../../../../../domain/failures/http_request.dart/http_request_failure.dart';
 import '../../../../../../domain/models/media/media.dart';
 import '../../../../../../domain/repositories/trending_repository.dart';
+import '../../../../../global/widgets/request_failed.dart';
 import 'trending_tile.dart';
 import 'trending_time_window.dart';
 
@@ -30,19 +31,22 @@ class _TrendingListState extends State<TrendingList> {
     _future = _trendingRepository.getMoviesAndSeries(_timeWindow);
   }
 
+  void _updateFuture(TimeWindow timeWindow) {
+    setState(() {
+      _timeWindow = timeWindow;
+      _future = _trendingRepository.getMoviesAndSeries(timeWindow);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TrendingTimeWindow(
-            timeWindow: _timeWindow,
-            onChanged: (newTimeWindow) {
-              setState(() {
-                _timeWindow = newTimeWindow;
-                _future = _trendingRepository.getMoviesAndSeries(newTimeWindow);
-              });
-            }),
+          timeWindow: _timeWindow,
+          onChanged: _updateFuture,
+        ),
         const SizedBox(height: 10),
         AspectRatio(
           aspectRatio: 16 / 8,
@@ -59,8 +63,10 @@ class _TrendingListState extends State<TrendingList> {
                       return const CircularProgressIndicator();
                     }
                     return snapshot.data!.when(
-                      left: (failure) => Text(
-                        failure.toString(),
+                      left: (failure) => RequestFailed(
+                        onRetry: () {
+                          _updateFuture(_timeWindow);
+                        },
                       ),
                       right: (list) {
                         return ListView.separated(

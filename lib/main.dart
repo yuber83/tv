@@ -19,7 +19,7 @@ import 'app/domain/repositories/authentication_repository.dart';
 import 'app/domain/repositories/connectivity_repository.dart';
 import 'app/domain/repositories/trending_repository.dart';
 import 'app/my_app.dart';
-import 'app/presentation/global/controller/session_controller.dart';
+import 'app/presentation/global/controllers/session_controller.dart';
 
 void main() {
   const apiKey =

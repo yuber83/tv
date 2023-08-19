@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../../domain/repositories/account_repository.dart';
 import '../../../../domain/repositories/authentication_repository.dart';
 import '../../../../domain/repositories/connectivity_repository.dart';
-import '../../../global/controller/session_controller.dart';
+import '../../../global/controllers/session_controller.dart';
 import '../../../routes/routes.dart';
 
 class SplahView extends StatefulWidget {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../global/controller/session_controller.dart';
-import '../../../routes/routes.dart';
-import '../../sign_in/views/controller/sign_in_controller.dart';
+import '../../../../global/controllers/session_controller.dart';
+import '../../../../routes/routes.dart';
+import '../controller/sign_in_controller.dart';
 
 class SubmitButton extends StatelessWidget {
   const SubmitButton({super.key});
