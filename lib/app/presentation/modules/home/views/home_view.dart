@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../routes/routes.dart';
 import '../controller/home_controller.dart';
 import '../controller/state/home_state.dart';
 import 'widgets/movies-and_series/trending_list.dart';
@@ -12,15 +13,29 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<HomeController>(
-      create: (context) {
-        final homeController = HomeController(
-          HomeState(),
-          trendingRepository: context.read(),
-        );
-        homeController.init();
-        return homeController;
-      },
+      create: (_) => HomeController(
+        HomeState(),
+        trendingRepository: context.read(),
+      )..init(),
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 1,
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.favorites);
+              },
+              icon: const Icon(Icons.favorite),
+              color: Colors.black,
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.person),
+              color: Colors.black,
+            )
+          ],
+        ),
         body: SafeArea(
           child: LayoutBuilder(
             builder: (context, constraints) => RefreshIndicator(

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../../domain/repositories/account_repository.dart';
 import '../../../../domain/repositories/authentication_repository.dart';
 import '../../../../domain/repositories/connectivity_repository.dart';
+import '../../../global/controllers/favorites/favorites_controller.dart';
 import '../../../global/controllers/session_controller.dart';
 import '../../../routes/routes.dart';
 
@@ -29,6 +30,7 @@ class _SplahViewState extends State<SplahView> {
       final AuthenticationRepository authenticationRepository = context.read();
       final AccountRepository accountRepository = context.read();
       final SessionController sessionController = context.read();
+      final FavoritesController favoritesController = context.read();
 
       final hasInternet = await connectivityRepository.hasInternet;
 
@@ -46,6 +48,7 @@ class _SplahViewState extends State<SplahView> {
 
       if (user != null) {
         sessionController.setUser(user);
+        favoritesController.init();
         return Routes.home;
       }
 

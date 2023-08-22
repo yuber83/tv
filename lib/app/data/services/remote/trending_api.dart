@@ -46,7 +46,7 @@ class TrendingAPI {
 
     return result.when(
       left: handleHttpFailure,
-      right: (list) => Either.right(list),
+      right: Either.right,
     );
   }
 }

@@ -34,39 +34,32 @@ class HomeController extends StateNotifier<HomeState> {
     final timeWindow = state.moviesAndSeries.timeWindow;
 
     final result = await trendingRepository.getMoviesAndSeries(timeWindow);
-    result.when(
-      left: (left) {
-        state = state.copyWith(
-            moviesAndSeries: MoviesAndSeriesState.failed(
-          timeWindow,
-        ));
-      },
-      right: (list) {
-        state = state.copyWith(
-          moviesAndSeries: MoviesAndSeriesState.loaded(
-            timeWindow: timeWindow,
-            list: list,
-          ),
-        );
-      },
-    );
+    state = result.when(
+        left: (_) => state.copyWith(
+              moviesAndSeries: MoviesAndSeriesState.failed(
+                timeWindow,
+              ),
+            ),
+        right: (list) => state.copyWith(
+              moviesAndSeries: MoviesAndSeriesState.loaded(
+                timeWindow: timeWindow,
+                list: list,
+              ),
+            ));
   }
 
   Future<void> loadPerformers({PerformersState? performers}) async {
     if (performers != null) {
       state = state.copyWith(performers: performers);
     }
-    final performersResult = await trendingRepository.getPerformers();
+    final result = await trendingRepository.getPerformers();
 
-    performersResult.when(
-      left: (left) {
-        state = state.copyWith(performers: const PerformersState.failed());
-      },
-      right: (list) {
-        state = state.copyWith(
-          performers: PerformersState.loaded(list),
-        );
-      },
+    state = result.when(
+      left: (left) =>
+          state.copyWith(performers: const PerformersState.failed()),
+      right: (list) => state.copyWith(
+        performers: PerformersState.loaded(list),
+      ),
     );
   }
 }
