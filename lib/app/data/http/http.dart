@@ -34,6 +34,7 @@ class Http {
     Map<String, String> queryParameters = const {},
     Map<String, dynamic> body = const {},
     bool useApiKey = true,
+    Duration timeout = const Duration(seconds: 10),
   }) async {
     Map<String, dynamic> logs = {};
     StackTrace? stackTrace;
@@ -66,36 +67,44 @@ class Http {
       };
       switch (method) {
         case HttpMethod.get:
-          response = await _client.get(uri, headers: headers);
+          response = await _client.get(uri, headers: headers).timeout(timeout);
           break;
         case HttpMethod.post:
-          response = await _client.post(
-            uri,
-            headers: headers,
-            body: bodyString,
-          );
+          response = await _client
+              .post(
+                uri,
+                headers: headers,
+                body: bodyString,
+              )
+              .timeout(timeout);
           break;
         case HttpMethod.patch:
           _client.patch(uri);
-          response = await _client.patch(
-            uri,
-            headers: headers,
-            body: bodyString,
-          );
+          response = await _client
+              .patch(
+                uri,
+                headers: headers,
+                body: bodyString,
+              )
+              .timeout(timeout);
           break;
         case HttpMethod.delete:
-          response = await _client.delete(
-            uri,
-            headers: headers,
-            body: bodyString,
-          );
+          response = await _client
+              .delete(
+                uri,
+                headers: headers,
+                body: bodyString,
+              )
+              .timeout(timeout);
           break;
         case HttpMethod.put:
-          response = await _client.put(
-            uri,
-            headers: headers,
-            body: bodyString,
-          );
+          response = await _client
+              .put(
+                uri,
+                headers: headers,
+                body: bodyString,
+              )
+              .timeout(timeout);
           break;
       }
 

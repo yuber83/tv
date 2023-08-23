@@ -19,20 +19,22 @@ class HomeView extends StatelessWidget {
       )..init(),
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 1,
+          // backgroundColor: Colors.white,
+          // elevation: 1,
           actions: [
             IconButton(
               onPressed: () {
                 Navigator.pushNamed(context, Routes.favorites);
               },
               icon: const Icon(Icons.favorite),
-              color: Colors.black,
+              // color: Colors.black,
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.profile);
+              },
               icon: const Icon(Icons.person),
-              color: Colors.black,
+              // color: Colors.black,
             )
           ],
         ),

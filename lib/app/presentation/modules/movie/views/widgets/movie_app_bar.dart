@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../global/controllers/favorites/favorites_controller.dart';
+import '../../../../utils/mark_as_favorite.dart';
 import '../../controller/movie_controller.dart';
 
 class MovieAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -13,6 +14,9 @@ class MovieAppBar extends StatelessWidget implements PreferredSizeWidget {
     final FavoritesController favoritesController = context.watch();
 
     return AppBar(
+      iconTheme: const IconThemeData(
+        color: Colors.white,
+      ),
       backgroundColor: Colors.transparent,
       actions: controller.state.mapOrNull(
         loaded: (movieState) => [
@@ -26,7 +30,13 @@ class MovieAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ? Icons.favorite
                     : Icons.favorite_border_outlined,
               ),
-              onPressed: () {},
+              onPressed: () {
+                markAsFavorite(
+                  context: context,
+                  media: movieState.movie.toMedia(),
+                  mounted: () => controller.mounted,
+                );
+              },
             ),
           ),
         ],

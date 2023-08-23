@@ -11,7 +11,10 @@ class SignInView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<SignInController>(
-      create: (BuildContext context) => SignInController(const SignInState(),
+      create: (BuildContext context) => SignInController(
+          sessionController: context.read(),
+          favoritesController: context.read(),
+          const SignInState(),
           authenticationRepository: context.read()),
       child: Scaffold(
         body: SafeArea(

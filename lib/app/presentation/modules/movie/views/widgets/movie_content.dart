@@ -15,7 +15,6 @@ class MovieContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final movie = state.movie;
-    print(state.movie.posterPath);
     return SingleChildScrollView(
       child: Column(
         children: [

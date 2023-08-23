@@ -28,4 +28,14 @@ class AccountRepositoryImpl implements AccountRepository {
   ) {
     return _accountApi.getFavorites(mediaType);
   }
+
+  @override
+  Future<Either<HttpRequestFailure, void>> markAsFavorite({
+    required int mediaId,
+    required MediaType type,
+    required bool favorite,
+  }) {
+    return _accountApi.markAsFavorite(
+        mediaId: mediaId, type: type, favorite: favorite);
+  }
 }
