@@ -26,6 +26,7 @@ import 'app/domain/repositories/connectivity_repository.dart';
 import 'app/domain/repositories/movies_repository.dart';
 import 'app/domain/repositories/preferences_repository.dart';
 import 'app/domain/repositories/trending_repository.dart';
+import 'app/generated/translations.g.dart';
 import 'app/my_app.dart';
 import 'app/presentation/global/controllers/favorites/favorites_controller.dart';
 import 'app/presentation/global/controllers/favorites/state/favorite_state.dart';
@@ -35,6 +36,9 @@ import 'app/presentation/global/controllers/theme_controlloer.dart';
 void main() async {
   setHashUrlStrategy();
   WidgetsFlutterBinding.ensureInitialized();
+
+  LocaleSettings.useDeviceLocale();
+
   const apiKey =
       'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNTJmYTRjZTBlYzc2MmUwNjcxMzQxNzZmZDUxNTkwOSIsInN1YiI6IjVmNWU0ZmMyZWMwYzU4MDAzNWI0OGJhNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.dzZHeJoJhiCWvnXeQO3DKWhlVoq42h9zzggDI9HrmZw';
 
@@ -53,7 +57,11 @@ void main() async {
   final deviceDarkMode = deviceTheme == Brightness.dark;
 
   final preferences = await SharedPreferences.getInstance();
-
+  final connectivityRepository = ConnectivityRepositoryImpl(
+    Connectivity(),
+    InternetChecker(),
+  );
+  await connectivityRepository.initialize();
   runApp(
     MultiProvider(
       providers: [
@@ -71,10 +79,7 @@ void main() async {
           ),
         ),
         Provider<ConnectivityRepository>(
-          create: (_) => ConnectivityRepositoryImpl(
-            Connectivity(),
-            InternetChecker(),
-          ),
+          create: (_) => connectivityRepository,
         ),
         Provider<AuthenticationRepository>(
           create: (_) => AuthenticationRepositoryImpl(
@@ -112,7 +117,9 @@ void main() async {
           );
         })
       ],
-      child: const MyApp(),
+      child: TranslationProvider(
+        child: const MyApp(),
+      ),
     ),
   );
 }

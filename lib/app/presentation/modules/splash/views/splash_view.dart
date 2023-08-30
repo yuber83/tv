@@ -32,7 +32,7 @@ class _SplahViewState extends State<SplahView> {
       final SessionController sessionController = context.read();
       final FavoritesController favoritesController = context.read();
 
-      final hasInternet = await connectivityRepository.hasInternet;
+      final hasInternet = connectivityRepository.hasInternet;
 
       if (!hasInternet) {
         return Routes.offline;

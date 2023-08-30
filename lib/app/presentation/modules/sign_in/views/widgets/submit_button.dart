@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../generated/translations.g.dart';
 import '../../../../routes/routes.dart';
 import '../controller/sign_in_controller.dart';
 
@@ -22,7 +23,7 @@ class SubmitButton extends StatelessWidget {
           }
         },
         color: Colors.blue,
-        child: const Text('Sign in'));
+        child: Text(texts.signIn.signin));
   }
 
   Future<void> _submit(BuildContext context) async {
@@ -36,11 +37,11 @@ class SubmitButton extends StatelessWidget {
     result.when(
       left: (failure) {
         final message = failure.when(
-          notVerified: () => 'Email not verified',
-          notFoud: () => 'Not Found',
-          network: () => 'Network error',
-          unauthorized: () => 'Invalid password',
-          unknown: () => 'Error desconocido',
+          notVerified: () => texts.signIn.errors.submit.notVerified,
+          notFoud: () => texts.signIn.errors.submit.notFoud,
+          network: () => texts.signIn.errors.submit.network,
+          unauthorized: () => texts.signIn.errors.submit.unauthorized,
+          unknown: () => texts.signIn.errors.submit.unknown,
         );
 
         final snackBar = SnackBar(content: Text(message));

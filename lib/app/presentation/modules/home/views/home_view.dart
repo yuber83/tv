@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../global/widgets/my_scaffold.dart';
 import '../../../routes/routes.dart';
+import '../../offline/views/offline_view.dart';
 import '../controller/home_controller.dart';
 import '../controller/state/home_state.dart';
 import 'widgets/movies-and_series/trending_list.dart';
@@ -17,11 +19,23 @@ class HomeView extends StatelessWidget {
         HomeState(),
         trendingRepository: context.read(),
       )..init(),
-      child: Scaffold(
+      child: MyScaffold(
         appBar: AppBar(
           // backgroundColor: Colors.white,
           // elevation: 1,
           actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const OfflineView(),
+                    ));
+              },
+              icon: const Icon(
+                Icons.car_crash,
+              ),
+            ),
             IconButton(
               onPressed: () {
                 Navigator.pushNamed(context, Routes.favorites);
